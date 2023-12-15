@@ -10,6 +10,55 @@
     display: \;
 }
 
+body {
+    background-color: rgb(46, 48, 53);
+    color: cornsilk;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
+
+#expense {
+    background-color: rgb(125, 125, 125);
+}
+
+#expense__name {
+    display: block;
+}
+
+#expense__amount {
+    display: block;
+}
+
+#expense__output {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+}
+
+.expense__newExpense {
+    border: solid 2px black;
+}
+
+.expense__item {
+    background-color: darkslategray;
+    display: block;
+    padding: 10px 20px;
+    width: 50vw;
+}
+
+.expense__cost {
+    background-color: darkgray;
+    display: block;
+    padding: 10px 20px;
+    width: 50vw;
+}
+
+.remove__expense {
+    margin-left: 10px;
+}
+
 #expense__name {
     display: block;
 }
