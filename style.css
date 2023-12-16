@@ -1,11 +1,3 @@
-.test {
-    background-color: blue;
-}
-
-.test2 {
-    background-color: aqua;
-}
-
 #expense {
     display: \;
 }
@@ -15,8 +7,6 @@ body {
     color: cornsilk;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
-
-
 
 #expense {
     background-color: rgb(125, 125, 125);

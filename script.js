@@ -12,8 +12,10 @@ expenseBtn.addEventListener("click", function addExpense() {
     const newExpenseName = document.createElement("div")
     const newClassName = expenseName.value.replace(/ /g, "")
 
+
+
     newExpense.classList.add("expense__newExpense")
-    newExpenseName.classList.add("expense__item", newClassName)
+    newExpenseName.classList.add("expense__item", newClassName, "expenseNumber" + classArray.length)
     if (classArray.indexOf(newClassName) == -1) {
         classArray.push(newClassName)
     }
@@ -32,6 +34,7 @@ expenseBtn.addEventListener("click", function addExpense() {
     // This creates a div with the text that the person put into the text field and a class of what was put into the text field.
 
     const newExpenseAmount = document.createElement("div")
+    console.log(newExpenseAmount.id)
     newExpenseAmount.classList.add("expense__cost")
     const newExpenseAmountNumber = document.createTextNode(expenseAmount.value)
     newExpenseAmount.appendChild(newExpenseAmountNumber)
@@ -41,7 +44,12 @@ expenseBtn.addEventListener("click", function addExpense() {
     // This creates a div with the text the person put into the number field.
 
     let removeExpenseBtn = document.createElement("button")
-    removeExpenseBtn.classList.add("remove__expense",)
+    let removeExpenseNumber = "removeExpenseNumber"
+    removeExpenseBtn.classList.add("remove__expense")
+    removeExpenseBtn.setAttribute("id", removeExpenseNumber + classArray.length)
+    let x = removeExpenseBtn.getAttribute(this.id)
+    console.log(x)
+    //removeExpenseBtn.addEventListener("onclick", buttonRemove(classArray.length))
     const removeExpenseTxt = document.createTextNode("Remove")
     removeExpenseBtn.appendChild(removeExpenseTxt)
     removeExpenseBtn.style.order = classArray.length
@@ -53,7 +61,8 @@ expenseBtn.addEventListener("click", function addExpense() {
 expenseBtn.addEventListener("click", function removeExpense() {
     console.log(true)
 })
-// let removeExpenseBtn = document.getElementsByClassName("remove__expense")
-// removeExpenseBtn.addEventListener("click", function removeExpense() {
-//     console.log(true)
-// })
+
+//function buttonRemove(x) {
+
+//}
+
