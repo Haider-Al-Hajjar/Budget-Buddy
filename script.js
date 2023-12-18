@@ -49,12 +49,8 @@ expenseBtn.addEventListener("click", function addExpense() {
     removeExpenseBtn.setAttribute("id", removeExpenseNumber + classArray.length)
     let x = removeExpenseBtn.getAttribute(this.id)
     console.log(x)
-    //removeExpenseBtn.addEventListener("onclick", buttonRemove(classArray.length))
-    const removeExpenseTxt = document.createTextNode("Remove")
-    removeExpenseBtn.appendChild(removeExpenseTxt)
-    removeExpenseBtn.style.order = classArray.length
-    newExpense.appendChild(removeExpenseBtn)
-    // This creates a button with the teext "Remove" & a class of "remove__expense" to be used in functions later.
+    // This creates a button with the teext "Remove" & a class of "remove__expense" to be used in functions later.  (removed code, not sure if I will add it back later.)  //removeExpenseBtn.addEventListener("onclick", buttonRemove(classArray.length))     // const removeExpenseTxt = document.createTextNode("Remove") // removeExpenseBtn.appendChild(removeExpenseTxt)    // removeExpenseBtn.style.order = classArray.length    // newExpense.appendChild(removeExpenseBtn)
+
 
     expenseOutput.appendChild(newExpense)
 })
