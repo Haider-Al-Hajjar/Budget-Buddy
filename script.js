@@ -12,27 +12,23 @@ let idArray = []
 expenseBtn.addEventListener("click", function addExpense() {
     const newExpense = document.createElement("div")
     const newExpenseName = document.createElement("div")
-    const newClassName = expenseName.value.replace(/ /g, "")
+    const newClassName = expenseName.value.replace(/ /g, "_")
 
 
 
-    newExpense.classList.add("expense__newExpense", newClassName)
-    newExpenseName.classList.add("expense__item")
     if (classArray.indexOf(newClassName) == -1) {
         classArray.push(newClassName)
     }
-    newExpenseName.classList.add("expenseNumber" + classArray.length)
+    newExpense.style.order = classArray.length += 1
+    newExpense.classList.add("expense__newExpense", newClassName, "expenseNumber" + classArray.length)
     // This checks whether or not the class name is unique, (thus a new class entirely), and if so, adds it to the list of classes.
-    // This is for sorting later.
+    // It also adds an order that makes sure nothing is at order = 1, so that when the search function is called, it can pull something up to order = 1.
+    // It also adds numerical class values that will allow the remove function to act on it later.
 
-    // classArray =
-    //     newExpenseName.setAttribute("id",)
-
-
+    newExpenseName.classList.add("expense__item")
     const newExpenseNameText = document.createTextNode(expenseName.value)
     newExpenseName.appendChild(newExpenseNameText)
     newExpense.appendChild(newExpenseName)
-
     // This creates a div with the text that the person put into the text field and a class of what was put into the text field.
 
     const newExpenseAmount = document.createElement("div")
@@ -49,7 +45,7 @@ expenseBtn.addEventListener("click", function addExpense() {
     const removeExpenseTxt = document.createTextNode("Remove")
     removeExpenseBtn.appendChild(removeExpenseTxt)
     newExpense.appendChild(removeExpenseBtn)
-    // This creates a button with the teext "Remove" & a class of "remove__expense" to be used in functions later.  (removed code, not sure if I will add it back later.)  
+    // This creates a button with the teext "Remove" & a class of "remove__expense" to be used in functions later.
 
     // let function = window["removeExpense" + classArray.length]
     //     function()
@@ -63,18 +59,16 @@ expenseBtn.addEventListener("click", function addExpense() {
 let searchName = document.getElementById("search__name")
 let searchBtn = document.getElementById("search__submit")
 let searchContainer = document.getElementById("search")
-let searchClass = searchName.value.replace(/ /g, "")
 searchBtn.addEventListener("click", function searchExpense() {
-    if (classArray.indexOf(searchName.value.replace(/ /g, "")) == -1) {
+    if (classArray.indexOf(searchName.value.replace(/ /g, "_")) == -1) {
         alert("Invalid Search. Something is misspelled, incorrectly capitalized, or the expense you are trying to search does not exist.")
     }
     else {
-        expenses = document.getElementsbyClassName("expense__newExpense")
-        oldExpense = document.getElementsByClassName(searchName.value)
-        for (i = 0; i < expenses.length; i++) {
-            expenses[i].style.visibility = "hidden"
-            oldExpense[i].style.visibility = "visible"
+        oldExpense = document.getElementsByClassName(searchName.value.replace(/ /g, "_"))
+        for (i = 0; i < oldExpense.length; i++) {
+            oldExpense[i].style.order = 1
         }
+        alert('Search complete! Your expense has been moved to the top of the list! Hit "unsort" to return it to its orginal position.')
     }
     //     for (i = 0; i < oldExpense.length; i++) {
     //         oldExpense[i].style.order = "1"
