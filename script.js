@@ -19,7 +19,7 @@ expenseBtn.addEventListener("click", function addExpense() {
     if (classArray.indexOf(newClassName) == -1) {
         classArray.push(newClassName)
     }
-    newExpense.style.order = classArray.length += 1
+    newExpense.style.order = classArray.length + 1
     newExpense.classList.add("expense__newExpense", newClassName, "expenseNumber" + classArray.length)
     // This checks whether or not the class name is unique, (thus a new class entirely), and if so, adds it to the list of classes.
     // It also adds an order that makes sure nothing is at order = 1, so that when the search function is called, it can pull something up to order = 1.
@@ -59,13 +59,19 @@ expenseBtn.addEventListener("click", function addExpense() {
 let searchName = document.getElementById("search__name")
 let searchBtn = document.getElementById("search__submit")
 let searchContainer = document.getElementById("search")
+let orderArray = []
 searchBtn.addEventListener("click", function searchExpense() {
     if (classArray.indexOf(searchName.value.replace(/ /g, "_")) == -1) {
         alert("Invalid Search. Something is misspelled, incorrectly capitalized, or the expense you are trying to search does not exist.")
     }
     else {
         oldExpense = document.getElementsByClassName(searchName.value.replace(/ /g, "_"))
+        everyExpense = document.getElementsByClassName("expense__newExpense")
+        for (i = 0; i < everyExpense.length; i++) {
+            everyExpense[i].style.order + 1
+        }
         for (i = 0; i < oldExpense.length; i++) {
+            orderArray.push(oldExpense[i].style.order)
             oldExpense[i].style.order = 1
         }
         alert('Search complete! Your expense has been moved to the top of the list! Hit "unsort" to return it to its orginal position.')
