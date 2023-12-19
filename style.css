@@ -8,10 +8,12 @@ body {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+/*Everything below is about expenses.*/
 #expense {
     background-color: rgb(125, 125, 125);
 }
 
+/*The following are about the input boxes for the expense.*/
 #expense__name {
     display: block;
 }
@@ -19,6 +21,8 @@ body {
 #expense__amount {
     display: block;
 }
+
+/*The following are about the output of the expense*/
 
 #expense__output {
     display: flex;
@@ -49,14 +53,16 @@ body {
     margin-left: 10px;
 }
 
-#expense__name {
+/*The following are about the search inputs*/
+
+#search {
+    background-color: black;
+}
+
+#search__name {
     display: block;
 }
 
-#expense__amount {
+#search__amount {
     display: block;
-}
-
-.break {
-    width: 100%;
 }

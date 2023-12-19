@@ -13,12 +13,17 @@
     <!--Expense Tracking-->
 
     <div id="expense">
-        <label for=" expense__name"> Expense Label (No spaces, case sensitive) </label>
+        <label for=" expense__name"> Expense Label</label>
         <input type="text" placeholder="Blood Sacrifice" id="expense__name">
         <label for="expense__amount">Expense Amount in dollars (decimals allowed)</label>
         <input type="number" step="0.01" min="0" placeholder="1.50" id="expense__amount" size="4">
         <button id="expense__submit"> Submit </button>
-        <div class="break"></div>
+        <hr>
+        <div id="search">
+            <label for="search__name">Search for an existing Expense Label. (Spaces are ignored, caps are not.)</label>
+            <input type="text" placeholder="Locate the sacrifice" id="search__name">
+            <button id="search__submit">Search</button>
+        </div>
         <hr>
         <p id="expense__output"></p>
     </div>
