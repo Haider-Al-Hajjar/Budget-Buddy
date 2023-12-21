@@ -8,27 +8,61 @@ body {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+hr {
+    margin: 0;
+
+}
+
+.margin-left {
+    margin-left: 40px;
+}
+
+.small-padding {
+    padding: 10px;
+}
+
 /*Everything below is about expenses.*/
+
 #expense {
+    background-color: rgb(125, 125, 125);
+    color: white;
+}
+
+.expense {
     background-color: rgb(125, 125, 125);
 }
 
+.expense__container {
+    border: 3px solid white;
+    word-wrap: break-word;
+    visibility: hiden;
+}
+
 /*The following are about the input boxes for the expense.*/
-#expense__name {
+
+.expense__name {
     display: block;
 }
 
-#expense__amount {
+.expense ::placeholder {
+    color: rgb(200, 200, 200, 0.5);
+}
+
+.expense__amount {
     display: block;
 }
+
+/*The above are about input boxes for the expense*/
+
+
 
 /*The following are about the output of the expense*/
-
 #expense__output {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     align-items: center;
+    visibility: hidden;
 }
 
 .expense__newExpense {
@@ -36,14 +70,14 @@ body {
 }
 
 .expense__item {
-    background-color: darkslategray;
+    background-color: darkcyan;
     display: block;
     padding: 10px 20px;
     width: 50vw;
 }
 
 .expense__cost {
-    background-color: darkgray;
+    background-color: brown;
     display: block;
     padding: 10px 20px;
     width: 50vw;
@@ -53,16 +87,68 @@ body {
     margin-left: 10px;
 }
 
-/*The following are about the search inputs*/
+/*The above are about the output of the expense.*/
+
+/*Everything above is about expenses*/
+
+
+
+/*Everything below is about the search*/
 
 #search {
+    border: 3px solid gray;
     background-color: black;
 }
 
-#search__name {
+.search {
+    background-color: black;
+}
+
+/*The following are about the search inputs*/
+
+.search__name {
     display: block;
 }
 
-#search__amount {
+.search__amount {
     display: block;
+}
+
+.search__submit {
+    color: white;
+}
+
+/*The above are about search inputs*/
+
+/*Everything above is about the search*/
+
+
+
+/*Everything below is about the budget*/
+#budget {
+    border: 3px solid green;
+    background-color: darkslategrey;
+}
+
+.budget__container {}
+
+.budget {
+    background-color: darkslategrey;
+}
+
+.budget__max {
+    display: block;
+}
+
+.budget__output {
+    display: flex;
+    justify-content: center;
+    font-size: xx-large;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: darkgoldenrod;
+    background-color: rgb(80, 80, 50);
+    border: darkorange 2px solid;
+    padding: 25px 0;
+    max-width: 600px;
+    margin: auto;
 }

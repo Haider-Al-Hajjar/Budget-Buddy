@@ -10,6 +10,7 @@ let idArray = []
 
 // Previos lines create variables to refer to the divs, inputs, output, and an array to hold class names. This way, they can be sorted.
 expenseBtn.addEventListener("click", function addExpense() {
+    expenseOutput.style.visibility = "visible"
     const newExpense = document.createElement("div")
     const newExpenseName = document.createElement("div")
     const newClassName = expenseName.value.replace(/ /g, "_")
@@ -68,7 +69,7 @@ searchBtn.addEventListener("click", function searchExpense() {
         oldExpense = document.getElementsByClassName(searchName.value.replace(/ /g, "_"))
         everyExpense = document.getElementsByClassName("expense__newExpense")
         for (i = 0; i < everyExpense.length; i++) {
-            everyExpense[i].style.order + 1
+            everyExpense[i].style.order++
         }
         for (i = 0; i < oldExpense.length; i++) {
             orderArray.push(oldExpense[i].style.order)
@@ -76,11 +77,12 @@ searchBtn.addEventListener("click", function searchExpense() {
         }
         alert('Search complete! Your expense has been moved to the top of the list! Hit "unsort" to return it to its orginal position.')
     }
-    //     for (i = 0; i < oldExpense.length; i++) {
-    //         oldExpense[i].style.order = "1"
-    //         console.log(i)
-    //     }
-    //     alert("Search complete! Expenses matching your input have been placed at the top of the expense list!")
-    // }
+})
 
+let budgetMax = document.getElementById("budget__max")
+let setMaxBtn = document.getElementById("budget__submit")
+let budgetContainer = document.getElementById("budget__output")
+
+setMaxBtn.addEventListener("click", function setMax() {
+    budgetContainer.innerHTML = "Maximum Budget of $" + budgetMax.value
 })
