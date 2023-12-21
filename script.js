@@ -86,3 +86,10 @@ let budgetContainer = document.getElementById("budget__output")
 setMaxBtn.addEventListener("click", function setMax() {
     budgetContainer.innerHTML = "Maximum Budget of $" + budgetMax.value
 })
+
+
+
+
+
+
+// There may be problems with the github.
