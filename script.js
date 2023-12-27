@@ -8,8 +8,32 @@ let expenseOutput = document.getElementById("expense__output")
 let classArray = []
 let idArray = []
 
+// Remember to reorganize
+function checkBudget() {
+    everyExpense = document.getElementsByClassName("expense__newExpense")
+    let expenseTotal = 0
+    for (i = 0; i < everyExpense.length; i++) {
+        let currentExpense = everyExpense[i].childNodes[1].innerHTML.replace("$", "")
+        expenseTotal += parseInt(currentExpense)
+        console.log("Budget total is " + expenseTotal)
+        // console.log(everyExpense[i].childNodes[1].innerHTML)
+    }
+}
+// Remeber to reorganize 
+
 // Previos lines create variables to refer to the divs, inputs, output, and an array to hold class names. This way, they can be sorted.
 expenseBtn.addEventListener("click", function addExpense() {
+
+    console.log("Budget max is " + budgetMax.value)
+
+
+    if (budgetMax.value < expenseTotal) {
+        return -1
+    }
+    if (checkBudget() == -1) {
+        alert("Problem")
+    }
+
     expenseOutput.style.visibility = "visible"
     const newExpense = document.createElement("div")
     const newExpenseName = document.createElement("div")
@@ -53,6 +77,7 @@ expenseBtn.addEventListener("click", function addExpense() {
     // Struggling to figure out how to make the remove expense button work!
     // I think this method has promise but I'll need to talk it over with someone.
     expenseOutput.appendChild(newExpense)
+
 })
 
 // Previous lines are about creating the addExpense function. The following lines are about the searchExpense function.
