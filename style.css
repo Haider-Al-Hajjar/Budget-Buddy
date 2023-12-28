@@ -96,6 +96,10 @@ button {
     background-color: black;
 }
 
+.remove__box {
+    border: solid 1px black;
+}
+
 /*The above are about the output of the expense.*/
 
 /*Everything above is about expenses*/
@@ -124,6 +128,10 @@ button {
 }
 
 .search__submit {
+    color: white;
+}
+
+.search__unsort {
     color: white;
 }
 
@@ -156,7 +164,6 @@ button {
     background-color: rgb(80, 80, 50);
     border: darkorange 2px solid;
     padding: 25px 0;
-    max-width: 600px;
     margin: auto;
 }
 

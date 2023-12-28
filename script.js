@@ -6,85 +6,93 @@ let expenseBtn = document.getElementById("expense__submit")
 let expenseContainer = document.getElementById("expense")
 let expenseOutput = document.getElementById("expense__output")
 let classArray = []
-let idArray = []
+let removeButtonCount = 1
 
 // Remember to reorganize
-function checkBudget() {
-    everyExpense = document.getElementsByClassName("expense__newExpense")
-    let expenseTotal = 0
-    for (i = 0; i < everyExpense.length; i++) {
-        let currentExpense = everyExpense[i].childNodes[1].innerHTML.replace("$", "")
-        expenseTotal += parseInt(currentExpense)
-        console.log("Budget total is " + expenseTotal)
-        // console.log(everyExpense[i].childNodes[1].innerHTML)
-    }
-}
+
 // Remeber to reorganize 
 
 // Previos lines create variables to refer to the divs, inputs, output, and an array to hold class names. This way, they can be sorted.
 expenseBtn.addEventListener("click", function addExpense() {
-
-    console.log("Budget max is " + budgetMax.value)
-
-
-    if (budgetMax.value < expenseTotal) {
-        return -1
+    function checkBudget() {
+        everyExpense = document.getElementsByClassName("expense__newExpense")
+        let expenseTotal = parseFloat(expenseAmount.value)
+        for (i = 0; i < everyExpense.length; i++) {
+            let currentExpense = everyExpense[i].childNodes[1].innerHTML.replace("$", "")
+            expenseTotal += parseFloat(currentExpense)
+        }
+        console.log("Expense total is " + expenseTotal)
+        console.log("Budget max is " + budgetMax)
+        if (budgetMax < expenseTotal) {
+            return -1
+        }
+        else {
+            return 1
+        }
     }
+
     if (checkBudget() == -1) {
-        alert("Problem")
+        alert("The expense you just tried to add would exceed the budget you set!\rIf you still want to add this expense, then you may either changing the budget, removing an expense.")
     }
 
-    expenseOutput.style.visibility = "visible"
-    const newExpense = document.createElement("div")
-    const newExpenseName = document.createElement("div")
-    const newClassName = expenseName.value.replace(/ /g, "_")
+    else {
+        expenseOutput.style.visibility = "visible"
+        const newExpense = document.createElement("div")
+        const newExpenseName = document.createElement("div")
+        const newClassName = expenseName.value.replace(/ /g, "_")
 
 
 
-    if (classArray.indexOf(newClassName) == -1) {
-        classArray.push(newClassName)
+        if (classArray.indexOf(newClassName) == -1) {
+            classArray.push(newClassName)
+        }
+        newExpense.style.order = classArray.length + 1
+        newExpense.classList.add("expense__newExpense", newClassName)
+        // This checks whether or not the class name is unique, (thus a new class entirely), and if so, adds it to the list of classes.
+        // It also adds an order that makes sure nothing is at order = 1, so that when the search function is called, it can pull something up to order = 1.
+        // It also adds numerical class values that will allow the remove function to act on it later.
+
+        newExpenseName.classList.add("expense__item")
+        const newExpenseNameText = document.createTextNode(expenseName.value)
+        newExpenseName.appendChild(newExpenseNameText)
+        newExpense.appendChild(newExpenseName)
+        // This creates a div with the text that the person put into the text field and a class of what was put into the text field.
+
+        const newExpenseAmount = document.createElement("div")
+        newExpenseAmount.classList.add("expense__cost")
+        const newExpenseAmountNumber = document.createTextNode("$" + expenseAmount.value)
+        newExpenseAmount.appendChild(newExpenseAmountNumber)
+
+        newExpense.appendChild(newExpenseAmount)
+        // This creates a div with the text the person put into the number field.
+
+        let removeExpenseBox = document.createElement("div")
+        let removeExpenseBtn = document.createElement("button")
+        removeExpenseBtn.classList.add("remove__expense")
+        removeExpenseBtn.setAttribute("id", "removeExpenseNumber" + removeButtonCount)
+        removeButtonCount++
+
+        removeExpenseBtn.addEventListener("click", removeExpense(removeExpenseBtn.id))
+
+        removeExpenseBox.classList.add("remove__box")
+        const removeExpenseTxt = document.createTextNode("Remove")
+        removeExpenseBtn.appendChild(removeExpenseTxt)
+        removeExpenseBox.appendChild(removeExpenseBtn)
+        newExpense.appendChild(removeExpenseBox)
+        // This creates a button with the teext "Remove" & a class of "remove__expense" to be used in functions later.
+
+        expenseOutput.appendChild(newExpense)
     }
-    newExpense.style.order = classArray.length + 1
-    newExpense.classList.add("expense__newExpense", newClassName, "expenseNumber" + classArray.length)
-    // This checks whether or not the class name is unique, (thus a new class entirely), and if so, adds it to the list of classes.
-    // It also adds an order that makes sure nothing is at order = 1, so that when the search function is called, it can pull something up to order = 1.
-    // It also adds numerical class values that will allow the remove function to act on it later.
-
-    newExpenseName.classList.add("expense__item")
-    const newExpenseNameText = document.createTextNode(expenseName.value)
-    newExpenseName.appendChild(newExpenseNameText)
-    newExpense.appendChild(newExpenseName)
-    // This creates a div with the text that the person put into the text field and a class of what was put into the text field.
-
-    const newExpenseAmount = document.createElement("div")
-    newExpenseAmount.classList.add("expense__cost")
-    const newExpenseAmountNumber = document.createTextNode("$" + expenseAmount.value)
-    newExpenseAmount.appendChild(newExpenseAmountNumber)
-
-    newExpense.appendChild(newExpenseAmount)
-    // This creates a div with the text the person put into the number field.
-
-    let removeExpenseBtn = document.createElement("button")
-    removeExpenseBtn.classList.add("remove__expense")
-    removeExpenseBtn.setAttribute("id", "removeExpenseNumber" + classArray.length)
-    const removeExpenseTxt = document.createTextNode("Remove")
-    removeExpenseBtn.appendChild(removeExpenseTxt)
-    newExpense.appendChild(removeExpenseBtn)
-    // This creates a button with the teext "Remove" & a class of "remove__expense" to be used in functions later.
-
-    // let function = window["removeExpense" + classArray.length]
-    //     function()
-    // Struggling to figure out how to make the remove expense button work!
-    // I think this method has promise but I'll need to talk it over with someone.
-    expenseOutput.appendChild(newExpense)
-
 })
+
+function removeExpense(e) {
+    e.parentElement.remove()
+}
 
 // Previous lines are about creating the addExpense function. The following lines are about the searchExpense function.
 
 let searchName = document.getElementById("search__name")
 let searchBtn = document.getElementById("search__submit")
-let searchContainer = document.getElementById("search")
 let orderArray = []
 searchBtn.addEventListener("click", function searchExpense() {
     if (classArray.indexOf(searchName.value.replace(/ /g, "_")) == -1) {
@@ -104,17 +112,23 @@ searchBtn.addEventListener("click", function searchExpense() {
     }
 })
 
-let budgetMax = document.getElementById("budget__max")
+let unsortBtn = document.getElementById("search__unsort")
+unsortBtn.addEventListener("click", function searchExpense() {
+    everyExpense = document.getElementsByClassName("expense__newExpense")
+    for (i = 0; i < everyExpense.length; i++) {
+
+    }
+})
+
+let budgetInput = document.getElementById("budget__max")
+var budgetMax = ""
 let setMaxBtn = document.getElementById("budget__submit")
 let budgetContainer = document.getElementById("budget__output")
 
 setMaxBtn.addEventListener("click", function setMax() {
-    budgetContainer.innerHTML = "Maximum Budget of $" + budgetMax.value
+    budgetMax = budgetInput.value
+    budgetContainer.innerHTML = "Maximum Budget of $" + budgetMax
 })
 
 
-
-
-
-
-// There may be problems with the github.
+//Remove function almost working. Figure out how to use "e.parentNode.parentNode.parentNode.removeChild(e.parentNode.parentNode)" & we're all good!
