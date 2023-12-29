@@ -19,13 +19,20 @@
     <!--Budget Setting-->
     <div id="budget" class="budget__container">
         <div class="margin-left small-padding">
-            <label for="budget__max" class="budget">Set a maximum budget</label>
+            <label for="budget__max" class="budget">Set a maximum budget for all expenses.</label>
             <input type="number" step="0.01" min="0" placeholder="666" id="budget__max" size="4"
                 class="budget budget__max">
-            <button id="budget__submit" class="budget budget__submit">Set maximum</button>
+            <button id="budget__submit" class="budget budget__submit">Set global maximum</button>
+        </div>
+        <div class="margin-left small-padding">
+            <label for="local__max" class="budget">Set a maximum budget for a specific category.</label>
+            <input type="number" step="0.01" min="0" placeholder="66.6" id="local__max" size="4"
+                class="budget budget__max">
+            <button id="local__max" class="budget budget__submit">Set local maximum</button>
         </div>
     </div>
     <p id="budget__output" class="budget budget__output">Maximum Budget of ...</p>
+    <p id="budget__local" class="budget budget__output"></p>
     <!--Expense Tracking-->
     <div id="expense">
         <div class="expense expense__container">
@@ -52,11 +59,10 @@
         </div>
     </div>
 
-    <p id="budget__remaining" </div>
-        <!--Visual Representation-->
-        <!--User Authetntication-->
-        <!--User-Friendly Interface-->
-        <script src="script.js"></script>
+    <!--Visual Representation-->
+    <!--User Authetntication-->
+    <!--User-Friendly Interface-->
+    <script src="script.js"></script>
 </body>
 
 </html>

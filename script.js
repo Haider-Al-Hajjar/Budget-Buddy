@@ -6,11 +6,6 @@ let expenseBtn = document.getElementById("expense__submit")
 let expenseContainer = document.getElementById("expense")
 let expenseOutput = document.getElementById("expense__output")
 let classArray = []
-let removeButtonCount = 1
-
-// Remember to reorganize
-
-// Remeber to reorganize 
 
 // Previos lines create variables to refer to the divs, inputs, output, and an array to hold class names. This way, they can be sorted.
 expenseBtn.addEventListener("click", function addExpense() {
@@ -30,17 +25,18 @@ expenseBtn.addEventListener("click", function addExpense() {
             return 1
         }
     }
-
+    // This creates a function within the addExpense function that checks whether or not the expense you are trying to set is beyond the budget that you set.
     if (checkBudget() == -1) {
         alert("The expense you just tried to add would exceed the budget you set!\rIf you still want to add this expense, then you may either changing the budget, removing an expense.")
     }
-
+    // This "if, else" statement stops the expense from going through if it would put you over your budget.
     else {
         expenseOutput.style.visibility = "visible"
         const newExpense = document.createElement("div")
         const newExpenseName = document.createElement("div")
         const newClassName = expenseName.value.replace(/ /g, "_")
-
+        //This shows the expenseOutput element and then creates a variable to append the rest of the variables to,
+        //one to append the name of the expense to, and one to create a classname that matches the expense name.
 
 
         if (classArray.indexOf(newClassName) == -1) {
@@ -69,25 +65,29 @@ expenseBtn.addEventListener("click", function addExpense() {
         let removeExpenseBox = document.createElement("div")
         let removeExpenseBtn = document.createElement("button")
         removeExpenseBtn.classList.add("remove__expense")
-        removeExpenseBtn.setAttribute("id", "removeExpenseNumber" + removeButtonCount)
-        removeButtonCount++
-
-        removeExpenseBtn.addEventListener("click", removeExpense(removeExpenseBtn.id))
-
         removeExpenseBox.classList.add("remove__box")
         const removeExpenseTxt = document.createTextNode("Remove")
         removeExpenseBtn.appendChild(removeExpenseTxt)
         removeExpenseBox.appendChild(removeExpenseBtn)
         newExpense.appendChild(removeExpenseBox)
-        // This creates a button with the teext "Remove" & a class of "remove__expense" to be used in functions later.
+        // This creates a remove button, its div, and their styles.
 
         expenseOutput.appendChild(newExpense)
+        // This appends the expenseName, the expenseAmount, and the removeExpenseBtn to expenseOutput.
+        // In other words, this makes them visible.
+
+        let removeExpenseBtnArray = document.getElementsByClassName("remove__expense")
+        for (i = 0; i < removeExpenseBtnArray.length; i++) {
+            removeExpenseBtnArray[i].addEventListener("click", function removeExpense() {
+                this.parentElement.parentElement.remove()
+                console.log("Button Activated!")
+            })
+        }
+        // This creates a function that allows each remove button to remove its parent expense.
+
     }
 })
 
-function removeExpense(e) {
-    e.parentElement.remove()
-}
 
 // Previous lines are about creating the addExpense function. The following lines are about the searchExpense function.
 
@@ -112,12 +112,15 @@ searchBtn.addEventListener("click", function searchExpense() {
     }
 })
 
+// Previous lines are about creating the searchExpense function. The following lines are about creating the unsortExpense function.
+
 let unsortBtn = document.getElementById("search__unsort")
-unsortBtn.addEventListener("click", function searchExpense() {
+unsortBtn.addEventListener("click", function unsortExpense() {
     everyExpense = document.getElementsByClassName("expense__newExpense")
     for (i = 0; i < everyExpense.length; i++) {
-
+        everyExpense[i].style.order = 1
     }
+    alert("The elements have been unsorted and returned to the order they were added in!")
 })
 
 let budgetInput = document.getElementById("budget__max")
