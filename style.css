@@ -23,14 +23,20 @@ button {
     margin-left: 40px;
 }
 
-.small-padding {
-    padding: 10px;
+.bottom-padding {
+    padding-bottom: 10px;
+}
+
+.footnote {
+    font-size: 80%;
+    max-width: 80%;
+    margin-left: 5px;
 }
 
 /*Everything below is about expenses.*/
 
 #expense {
-    color: gray;
+    color: white;
 }
 
 .expense {
@@ -40,7 +46,7 @@ button {
 .expense__container {
     border: 3px solid white;
     word-wrap: break-word;
-    visibility: hiden;
+    padding-bottom: 5px;
 }
 
 /*The following are about the input boxes for the expense.*/
@@ -91,9 +97,21 @@ button {
     width: 50vw;
 }
 
+.expense__tag {
+    background-color: rgb(50, 50, 80);
+    display: inline-block;
+    border-top: solid 2px gray;
+    border-right: solid 2px black;
+    border-bottom: solid 2px black;
+    border-left: solid 2px gray;
+    padding: 3px 7px;
+    margin: 3px;
+}
+
 .remove__expense {
-    margin-left: 10px;
+    margin: 0px 10px 2px;
     background-color: black;
+    display: inline-block;
 }
 
 .remove__box {
@@ -111,6 +129,7 @@ button {
 #search {
     border: 3px solid gray;
     background-color: black;
+    padding-bottom: 5px;
 }
 
 .search {
@@ -127,14 +146,6 @@ button {
     display: block;
 }
 
-.search__submit {
-    color: white;
-}
-
-.search__unsort {
-    color: white;
-}
-
 /*The above are about search inputs*/
 
 /*Everything above is about the search*/
@@ -144,8 +155,14 @@ button {
 /*Everything below is about the budget*/
 #budget {
     border: 3px solid green;
+    padding-bottom: 15px;
     background-color: darkslategrey;
 }
+
+div#budget hr {
+    border: 1px solid green;
+}
+
 
 .budget {
     background-color: darkslategrey;
@@ -165,9 +182,5 @@ button {
     border: darkorange 2px solid;
     padding: 25px 0;
     margin: auto;
+    margin-bottom: 0px;
 }
-
-
-
-
-/*There may be problems with the github.*/
