@@ -18,13 +18,12 @@ expenseBtn.addEventListener("click", function addExpense() {
             let currentExpense = everyExpense[i].childNodes[1].innerHTML.replace("$", "")
             expenseTotal += parseFloat(currentExpense)
         }
-        console.log("Expense total is " + expenseTotal)
-        console.log("Budget max is " + budgetMax)
         if (budgetMax < expenseTotal) {
             return -1
         }
         else {
-            return 1
+            output = expenseTotal / budgetMax * 100
+            return (output.toFixed(2))
         }
     }
     // This creates a function within the addExpense function that checks whether or not the expense you are trying to set is beyond the budget that you set.
@@ -34,6 +33,9 @@ expenseBtn.addEventListener("click", function addExpense() {
         }
         // This "if, else" statement stops the expense from going through if it would put you over your budget.
         else {
+            if (checkBudget() > 69) {
+                alert("You have reached " + checkBudget() + "% of your budget.")
+            }
             expenseOutput.style.visibility = "visible"
             const newExpense = document.createElement("div")
             const newExpenseName = document.createElement("div")
@@ -52,7 +54,6 @@ expenseBtn.addEventListener("click", function addExpense() {
             newExpense.classList.add("expense__newExpense", newClassName)
             // This checks whether or not the class name is unique, (thus a new class entirely), and if so, adds it to the list of classes.
             // It also adds an order that makes sure nothing is at order = 1, so that when the search function is called, it can pull something up to order = 1.
-            // It also adds numerical class values that will allow the remove function to act on it later.
 
             newExpenseName.classList.add("expense__item")
             const newExpenseNameText = document.createTextNode(expenseName.value)
@@ -78,17 +79,30 @@ expenseBtn.addEventListener("click", function addExpense() {
             // This creates a remove button, its div, and their styles.
 
             for (i = 0; i < newTagArray.length; i++) {
-                newTagName = newTagArray[i].replace(/\s/g, '')
-                let newExpenseTagText = document.createTextNode(newTagName)
-                let newTag = document.createElement("div")
-                newTag.appendChild(newExpenseTagText)
-                newTag.classList.add("expense__tag")
-                removeExpenseBox.appendChild(newTag)
+                if (newTagArray[i] !== "") {
+                    newTagName = newTagArray[i].replace(/\s/g, '_')
+                    let newExpenseTagText = document.createTextNode(newTagName)
+                    let newTag = document.createElement("div")
+                    newTag.appendChild(newExpenseTagText)
+                    newTag.classList.add("expense__tag")
+
+                    if (classArray.indexOf(newTagName) == -1) {
+                        classArray.push(newTagName)
+                        newExpense.classList.add(newTagName)
+                    }
+
+                    newTag.addEventListener("click", function removeTag() {
+                        if (confirm("Are you sure you want to remove this tag?")) {
+                            classArray.splice(classArray.indexOf(this))
+                            this.parentElement.parentElement.classList.remove(this.innerHTML)
+                            this.parentElement.removeChild(this)
+                        }
+
+                    })
+
+                    removeExpenseBox.appendChild(newTag)
 
 
-                if (classArray.indexOf(newTagName) == -1) {
-                    classArray.push(newTagName)
-                    newExpense.classList.add(newTagName)
                 }
             }
             // This appends all new tags to the removeExpenseBox.
@@ -100,13 +114,12 @@ expenseBtn.addEventListener("click", function addExpense() {
             // In other words, this makes them visible.
 
             let removeExpenseBtnArray = document.getElementsByClassName("remove__expense")
-            for (i = 0; i < removeExpenseBtnArray.length; i++) {
-                removeExpenseBtnArray[i].addEventListener("click", function removeExpense() {
-                    if (confirm("Are you sure you want to remove this expense?")) {
-                        this.parentElement.parentElement.remove()
-                    }
-                })
-            }
+            removeExpenseBtnArray[removeExpenseBtnArray.length - 1].addEventListener("click", function removeExpense() {
+                if (confirm("Are you sure you want to remove this expense?")) {
+                    this.parentElement.parentElement.remove()
+                }
+            })
+
             // This creates a function that allows each remove button to remove its parent expense.
 
 
@@ -164,5 +177,8 @@ let setLocalMaxBtn = document.getElementById("local__max-submit")
 let localBudgetInput = document.getElementById("local__max")
 let localBudgetContainer = document.getElementById("budget__local")
 setLocalMaxBtn.addEventListener("click", function setLocalMax() {
+    localBudget = document.createElement("div")
+    localBudgetName = document.createElement("div")
+    localBudgetText = document.createTextNode(localBudgetInput.value)
 
 })

@@ -22,7 +22,7 @@
             <h2>Global Budget</h2>
             <div class="bottom-padding">
                 <label for="budget__max" class="budget "> Set a maximum budget in dollars for all expenses.</label>
-                <input type="number" step="0.01" min="0" placeholder="666" id="budget__max" size="4"
+                <input type="number" step="0.01" min="0" placeholder="666" autofocus id="budget__max" size="4"
                     class="budget budget__max">
             </div>
             <div class="bottom-padding">
@@ -75,7 +75,8 @@
                     <div class="bottom-padding">
                         <label for="expense__tag" class="expense">Add tags to this expense. </label>
                         <p class="footnote">These can be searched by and contribute to local budget categories.
-                            <i>Separate tags by commas followed by a space."Tag One, Tag Two, Tag Three"</i>
+                            <i>Separate tags by commas followed by a space. Remove tags by clicking on them. Tags are
+                                case sensitive and may contain spaces or underscores."Tag One, Tag_Two, TagThree"</i>
                         </p>
                         <input type="text" placeholder="Ritual Costs" id="expense__tag" class="expense expense__name">
                     </div>
