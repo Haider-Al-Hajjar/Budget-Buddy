@@ -34,8 +34,9 @@
             <!--This is not finisihed yet.-->
             <h3>Local Budget</h3>
             <div class="bottom-padding">
-                <label for="local__category" class="budget">Set a category to be limited. </label>
-                <p class="footnote"><i>(Expenses will only fall under this category if they have the same exact spelling
+                <label for="local__category" class="budget">Set a budget for a category of expenses. </label>
+                <p class="footnote"><i>(Expenses and tags will only fall under this category if they have the same exact
+                        spelling
                         (including spaces)).</i></p>
                 <input type="text" class="budget budget__max" placeholder="Ritual Materials" id="local__category">
             </div>
@@ -51,7 +52,9 @@
         </div>
     </div>
     <p id="budget__output" class="budget budget__output">Global Budget of ...</p>
-    <p id="budget__local" class="budget budget__output"></p>
+    <p id="budget__local" class="budget budget__output budget__normal-size">
+        <span class="bottom-padding-large budget__normal-size"> Current Category Budgets</span>
+    </p>
     <!--Expense Tracking-->
     <div id="expense">
         <div class="expense expense__container">
@@ -60,7 +63,8 @@
                 <hr>
                 <div class="bottom-padding">
                     <h3>Add an Expense</h3>
-                    <div class="bottom-padding"><label for=" expense__name" class="expense"> Expense Label</label>
+                    <div class="bottom-padding"><label for=" expense__name" class="expense"> Expense
+                            Label</label>
                         <input type="text" placeholder="Blood Sacrifice" id="expense__name"
                             class="expense expense__name">
                     </div>
@@ -75,8 +79,10 @@
                     <div class="bottom-padding">
                         <label for="expense__tag" class="expense">Add tags to this expense. </label>
                         <p class="footnote">These can be searched by and contribute to local budget categories.
-                            <i>Separate tags by commas followed by a space. Remove tags by clicking on them. Tags are
-                                case sensitive and may contain spaces or underscores."Tag One, Tag_Two, TagThree"</i>
+                            <i>Separate tags by commas followed by a space. Remove tags by clicking on them.
+                                Tags are
+                                case sensitive and may contain spaces or underscores."Tag One, Tag_Two,
+                                TagThree"</i>
                         </p>
                         <input type="text" placeholder="Ritual Costs" id="expense__tag" class="expense expense__name">
                     </div>

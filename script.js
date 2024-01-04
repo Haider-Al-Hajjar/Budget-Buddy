@@ -4,16 +4,14 @@ let expenseName = document.getElementById("expense__name")
 let expenseAmount = document.getElementById("expense__amount")
 let expenseTag = document.getElementById("expense__tag")
 let expenseBtn = document.getElementById("expense__submit")
-let expenseContainer = document.getElementById("expense")
 let expenseOutput = document.getElementById("expense__output")
 let classArray = []
-
+var expenseTotal = parseFloat(expenseAmount.value)
 
 // Previous lines create variables to refer to the divs, inputs, output, and an array to hold class names. This way, they can be sorted.
 expenseBtn.addEventListener("click", function addExpense() {
     function checkBudget() {
         everyExpense = document.getElementsByClassName("expense__newExpense")
-        let expenseTotal = parseFloat(expenseAmount.value)
         for (i = 0; i < everyExpense.length; i++) {
             let currentExpense = everyExpense[i].childNodes[1].innerHTML.replace("$", "")
             expenseTotal += parseFloat(currentExpense)
@@ -28,6 +26,7 @@ expenseBtn.addEventListener("click", function addExpense() {
     }
     // This creates a function within the addExpense function that checks whether or not the expense you are trying to set is beyond the budget that you set.
     if (confirm("Are you sure you want to add this expense?")) {
+        budgetContainer.innerHTML = "Global Budget of $" + budgetMax + ". <br> Budget spent: $" + expenseTotal + " (" + checkBudget() + "%) "
         if (checkBudget() == -1) {
             alert("The expense you just tried to add would exceed the budget you set!\rIf you still want to add this expense, then you may either changing the budget, removing an expense.")
         }
@@ -36,10 +35,15 @@ expenseBtn.addEventListener("click", function addExpense() {
             if (checkBudget() > 69) {
                 alert("You have reached " + checkBudget() + "% of your budget.")
             }
+
+            /////
+            // NEW EXPENSE FUNCTION START ZZ //
+            /////
+
             expenseOutput.style.visibility = "visible"
             const newExpense = document.createElement("div")
             const newExpenseName = document.createElement("div")
-            const newClassName = expenseName.value.replace(/ /g, "_")
+            const newClassName = expenseName.value.trim().replace(/ /g, "_")
             const newTagArray = expenseTag.value.split(", ")
             // This shows the expenseOutput element and then creates a variable to append the rest of the variables to,
             // one to append the name of the expense to, one to create a classname that matches the expense name,
@@ -80,7 +84,7 @@ expenseBtn.addEventListener("click", function addExpense() {
 
             for (i = 0; i < newTagArray.length; i++) {
                 if (newTagArray[i] !== "") {
-                    newTagName = newTagArray[i].replace(/\s/g, '_')
+                    newTagName = newTagArray[i].trim().replace(/ /g, '_')
                     let newExpenseTagText = document.createTextNode(newTagName)
                     let newTag = document.createElement("div")
                     newTag.appendChild(newExpenseTagText)
@@ -113,8 +117,7 @@ expenseBtn.addEventListener("click", function addExpense() {
             // This appends the expenseName, the expenseAmount, and the removeExpenseBtn to expenseOutput.
             // In other words, this makes them visible.
 
-            let removeExpenseBtnArray = document.getElementsByClassName("remove__expense")
-            removeExpenseBtnArray[removeExpenseBtnArray.length - 1].addEventListener("click", function removeExpense() {
+            removeExpenseBtn.addEventListener("click", function remove() {
                 if (confirm("Are you sure you want to remove this expense?")) {
                     this.parentElement.parentElement.remove()
                 }
@@ -135,11 +138,11 @@ let searchName = document.getElementById("search__name")
 let searchBtn = document.getElementById("search__submit")
 let orderArray = []
 searchBtn.addEventListener("click", function searchExpense() {
-    if (classArray.indexOf(searchName.value.replace(/ /g, "_")) == -1) {
+    if (classArray.indexOf(searchName.value.trim().replace(/ /g, "_")) == -1) {
         alert("Invalid Search. Something is misspelled, incorrectly capitalized, or the expense you are trying to search does not exist.")
     }
     else {
-        oldExpense = document.getElementsByClassName(searchName.value.replace(/ /g, "_"))
+        oldExpense = document.getElementsByClassName(searchName.value.trim().replace(/ /g, "_"))
         everyExpense = document.getElementsByClassName("expense__newExpense")
         for (i = 0; i < everyExpense.length; i++) {
             everyExpense[i].style.order++
@@ -170,15 +173,56 @@ let budgetContainer = document.getElementById("budget__output")
 
 setMaxBtn.addEventListener("click", function setMax() {
     budgetMax = budgetInput.value
-    budgetContainer.innerHTML = "Maximum Budget of $" + budgetMax
+    budgetContainer.innerHTML = "Global Budget of $" + budgetMax
 })
 
 let setLocalMaxBtn = document.getElementById("local__max-submit")
-let localBudgetInput = document.getElementById("local__max")
 let localBudgetContainer = document.getElementById("budget__local")
+let localBudgetInput = document.getElementById("local__category")
+let localBudgetMax = document.getElementById("local__max")
+let budgetArray = []
+
 setLocalMaxBtn.addEventListener("click", function setLocalMax() {
-    localBudget = document.createElement("div")
-    localBudgetName = document.createElement("div")
-    localBudgetText = document.createTextNode(localBudgetInput.value)
+    let newBudgetCategory = localBudgetInput.value.trim().replace(/ /g, "_")
+    if (budgetArray.indexOf(newBudgetCategory) == -1) {
+        budgetArray.push(newBudgetCategory)
+
+        let newBudget = document.createElement("div")
+        newBudget.classList.add("localBudget__newBudget")
+
+        let newBudgetName = document.createElement("div")
+        let newBudgetText = document.createTextNode(localBudgetInput.value)
+        newBudgetName.appendChild(newBudgetText)
+        newBudgetName.classList.add("localBudget__newCategory")
+        newBudget.appendChild(newBudgetName)
+
+        let newBudgetMax = document.createElement("div")
+        let newBudgetNumber = document.createTextNode("$" + localBudgetMax.value)
+
+        newBudgetMax.appendChild(newBudgetNumber)
+        newBudgetMax.classList.add("localBudget__newMax")
+        newBudget.appendChild(newBudgetMax)
+
+
+        let removeBudgetBox = document.createElement("div")
+        let removeBudgetBtn = document.createElement("button")
+        removeBudgetBtn.classList.add("remove__budget")
+        removeBudgetBox.classList.add("remove__box")
+        const removeBudgetText = document.createTextNode("Remove")
+        removeBudgetBtn.appendChild(removeBudgetText)
+        removeBudgetBox.appendChild(removeBudgetBtn)
+        newBudget.appendChild(removeBudgetBox)
+        removeBudgetBtn.addEventListener("click", function removeBudget() {
+            if (confirm("Are you sure you want to remove this budget?")) {
+                this.parentElement.parentElement.remove()
+            }
+        })
+
+
+        localBudgetContainer.appendChild(newBudget)
+    }
+
 
 })
+
+// yy

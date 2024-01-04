@@ -23,6 +23,10 @@ button {
     margin-left: 40px;
 }
 
+.bottom-padding-large {
+    margin-bottom: 25px;
+}
+
 .bottom-padding {
     padding-bottom: 10px;
 }
@@ -183,4 +187,50 @@ div#budget hr {
     padding: 25px 0;
     margin: auto;
     margin-bottom: 0px;
+}
+
+.budget__normal-size {
+    font-size: x-large;
+}
+
+#budget__local {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    font-size: large
+}
+
+.local__category {
+    margin-bottom: 5px
+}
+
+.localBudget__newBudget {
+    border: solid 3px black;
+    background-color: rgb(50, 50, 80);
+    color: white;
+    font-size: medium;
+}
+
+
+.localBudget__newCategory {
+    background-color: darkred;
+    display: block;
+    padding: 10px 20px;
+    width: 50vw;
+    border: solid 1px black;
+}
+
+.localBudget__newMax {
+    background-color: darkcyan;
+    border: solid 1px black;
+    display: block;
+    padding: 10px 20px;
+    width: 50vw;
+}
+
+.remove__budget {
+    margin: 0px 10px 2px;
+    background-color: black;
+    display: inline-block;
 }
