@@ -6,12 +6,34 @@ let expenseTag = document.getElementById("expense__tag")
 let expenseBtn = document.getElementById("expense__submit")
 let expenseOutput = document.getElementById("expense__output")
 let classArray = []
-var expenseTotal = parseFloat(expenseAmount.value)
 
 // Previous lines create variables to refer to the divs, inputs, output, and an array to hold class names. This way, they can be sorted.
 expenseBtn.addEventListener("click", function addExpense() {
+    function checkLocalBudget() {
+        console.log("Function Run!")
+        for (i = 0; i < budgetArray.length; i++) {
+            var categoryExpenseTotal = 0
+            let localBudgetCategory = document.getElementsByClassName(budgetArray[i])
+            console.log(localBudgetCategory)
+            for (j = 0; j < localBudgetCategory.length; j++) {
+                let currentCategoryExpense = localBudgetCategory[j].childNodes[1].innerHTML.replace("$", "")
+                categoryExpenseTotal += parseFloat(currentCategoryExpense)
+                console.log(categoryExpenseTotal)
+                console.log(j)
+
+            }
+
+            // allCategoryExpenses = document.getElementsByClassName(localBudgetCategory).parentElement.childNodes[1]
+
+
+        }
+    }
+    checkLocalBudget()
+    console.log(checkLocalBudget())
+    var expenseTotal = parseFloat(expenseAmount.value)
     function checkBudget() {
         everyExpense = document.getElementsByClassName("expense__newExpense")
+        var expenseTotal = parseFloat(expenseAmount.value)
         for (i = 0; i < everyExpense.length; i++) {
             let currentExpense = everyExpense[i].childNodes[1].innerHTML.replace("$", "")
             expenseTotal += parseFloat(currentExpense)
@@ -43,7 +65,7 @@ expenseBtn.addEventListener("click", function addExpense() {
             expenseOutput.style.visibility = "visible"
             const newExpense = document.createElement("div")
             const newExpenseName = document.createElement("div")
-            const newClassName = expenseName.value.trim().replace(/ /g, "_")
+            const newClassName = expenseName.value.trim().replace(/ /g, "")
             const newTagArray = expenseTag.value.split(", ")
             // This shows the expenseOutput element and then creates a variable to append the rest of the variables to,
             // one to append the name of the expense to, one to create a classname that matches the expense name,
@@ -138,11 +160,11 @@ let searchName = document.getElementById("search__name")
 let searchBtn = document.getElementById("search__submit")
 let orderArray = []
 searchBtn.addEventListener("click", function searchExpense() {
-    if (classArray.indexOf(searchName.value.trim().replace(/ /g, "_")) == -1) {
+    if (classArray.indexOf(searchName.value.trim().replace(/ /g, "")) == -1) {
         alert("Invalid Search. Something is misspelled, incorrectly capitalized, or the expense you are trying to search does not exist.")
     }
     else {
-        oldExpense = document.getElementsByClassName(searchName.value.trim().replace(/ /g, "_"))
+        oldExpense = document.getElementsByClassName(searchName.value.trim().replace(/ /g, ""))
         everyExpense = document.getElementsByClassName("expense__newExpense")
         for (i = 0; i < everyExpense.length; i++) {
             everyExpense[i].style.order++
@@ -166,6 +188,29 @@ unsortBtn.addEventListener("click", function unsortExpense() {
     alert("The elements have been unsorted and returned to the order they were added in!")
 })
 
+// Previous lines are about creating thee unsortExpense function. The following lines are about creating the toggleClassList function.
+
+let toggleClassListBtn = document.getElementById("search__classList")
+var toggleClassListStorage = 1
+let classListContainer = document.getElementById("classList__output")
+toggleClassListBtn.addEventListener("click", function toggleClassList() {
+    if (toggleClassListStorage === 1) {
+        classListContainer.innerHTML = classArray
+        classListContainer.classList.toggle("invisible")
+        toggleClassListBtn.innerHTML = "Hide all Labels & Tags"
+        toggleClassListStorage = -1
+
+    }
+    else if (toggleClassListStorage === -1) {
+        classListContainer.innerHTML = ""
+        classListContainer.classList.toggle("invisible")
+        toggleClassListBtn.innerHTML = "Show all Labels & Tags"
+        toggleClassListStorage = 1
+    }
+})
+
+// Previous lines are about creating thee toggleClassList function. The following lines are about creating the setMax function.
+
 let budgetInput = document.getElementById("budget__max")
 var budgetMax = ""
 let setMaxBtn = document.getElementById("budget__submit")
@@ -176,15 +221,21 @@ setMaxBtn.addEventListener("click", function setMax() {
     budgetContainer.innerHTML = "Global Budget of $" + budgetMax
 })
 
+// Previous lines are about creating thee setMax function. The following lines are about creating the setLocalMax function.
+
 let setLocalMaxBtn = document.getElementById("local__max-submit")
 let localBudgetContainer = document.getElementById("budget__local")
 let localBudgetInput = document.getElementById("local__category")
 let localBudgetMax = document.getElementById("local__max")
 let budgetArray = []
+let maxArray = []
 
 setLocalMaxBtn.addEventListener("click", function setLocalMax() {
-    let newBudgetCategory = localBudgetInput.value.trim().replace(/ /g, "_")
-    if (budgetArray.indexOf(newBudgetCategory) == -1) {
+    let newBudgetCategory = localBudgetInput.value.trim().replace(/ /g, "")
+    if (budgetArray.indexOf(newBudgetCategory) !== -1) {
+        alert("You have already set a budget for this category. Remove the budget in order to reset it.")
+    }
+    else {
         budgetArray.push(newBudgetCategory)
 
         let newBudget = document.createElement("div")
@@ -199,6 +250,7 @@ setLocalMaxBtn.addEventListener("click", function setLocalMax() {
         let newBudgetMax = document.createElement("div")
         let newBudgetNumber = document.createTextNode("$" + localBudgetMax.value)
 
+        maxArray.push(localBudgetMax.value)
         newBudgetMax.appendChild(newBudgetNumber)
         newBudgetMax.classList.add("localBudget__newMax")
         newBudget.appendChild(newBudgetMax)
@@ -215,14 +267,16 @@ setLocalMaxBtn.addEventListener("click", function setLocalMax() {
         removeBudgetBtn.addEventListener("click", function removeBudget() {
             if (confirm("Are you sure you want to remove this budget?")) {
                 this.parentElement.parentElement.remove()
+                budgetArray.splice(budgetArray.indexOf(this.parentElement))
+                maxArray.splice(budgetArray.indexOf(this.parentElement))
             }
+
         })
 
 
         localBudgetContainer.appendChild(newBudget)
+
     }
-
-
 })
 
-// yy
+// Previous lines are about creating thee setLocalMax function. The following lines are about 

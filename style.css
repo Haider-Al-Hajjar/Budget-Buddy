@@ -37,6 +37,13 @@ button {
     margin-left: 5px;
 }
 
+.invisible {
+    visibility: hidden;
+    margin: -5px;
+
+}
+
+
 /*Everything below is about expenses.*/
 
 #expense {
