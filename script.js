@@ -9,27 +9,11 @@ let classArray = []
 
 // Previous lines create variables to refer to the divs, inputs, output, and an array to hold class names. This way, they can be sorted.
 expenseBtn.addEventListener("click", function addExpense() {
-    function checkLocalBudget() {
-        console.log("Function Run!")
-        for (i = 0; i < budgetArray.length; i++) {
-            var categoryExpenseTotal = 0
-            let localBudgetCategory = document.getElementsByClassName(budgetArray[i])
-            console.log(localBudgetCategory)
-            for (j = 0; j < localBudgetCategory.length; j++) {
-                let currentCategoryExpense = localBudgetCategory[j].childNodes[1].innerHTML.replace("$", "")
-                categoryExpenseTotal += parseFloat(currentCategoryExpense)
-                console.log(categoryExpenseTotal)
-                console.log(j)
+    function checkIfExists() {
 
-            }
-
-            // allCategoryExpenses = document.getElementsByClassName(localBudgetCategory).parentElement.childNodes[1]
-
-
-        }
     }
-    checkLocalBudget()
-    console.log(checkLocalBudget())
+
+
     var expenseTotal = parseFloat(expenseAmount.value)
     function checkBudget() {
         everyExpense = document.getElementsByClassName("expense__newExpense")
@@ -37,6 +21,9 @@ expenseBtn.addEventListener("click", function addExpense() {
         for (i = 0; i < everyExpense.length; i++) {
             let currentExpense = everyExpense[i].childNodes[1].innerHTML.replace("$", "")
             expenseTotal += parseFloat(currentExpense)
+
+            expenseName.value
+
         }
         if (budgetMax < expenseTotal) {
             return -1
@@ -47,110 +34,127 @@ expenseBtn.addEventListener("click", function addExpense() {
         }
     }
     // This creates a function within the addExpense function that checks whether or not the expense you are trying to set is beyond the budget that you set.
-    if (confirm("Are you sure you want to add this expense?")) {
-        budgetContainer.innerHTML = "Global Budget of $" + budgetMax + ". <br> Budget spent: $" + expenseTotal + " (" + checkBudget() + "%) "
-        if (checkBudget() == -1) {
-            alert("The expense you just tried to add would exceed the budget you set!\rIf you still want to add this expense, then you may either changing the budget, removing an expense.")
+    // if (confirm("Are you sure you want to add this expense?")) {
+    budgetContainer.innerHTML = "Global Budget of $" + budgetMax + ". <br> Budget spent: $" + expenseTotal + " (" + checkBudget() + "%) "
+    if (checkBudget() == -1) {
+        alert("The expense you just tried to add would exceed the budget you set!\rIf you still want to add this expense, then you may either changing the budget, removing an expense.")
+    }
+    // This "if, else" statement stops the expense from going through if it would put you over your budget.
+    else {
+        if (checkBudget() > 69) {
+            alert("You have reached " + checkBudget() + "% of your budget.")
         }
-        // This "if, else" statement stops the expense from going through if it would put you over your budget.
-        else {
-            if (checkBudget() > 69) {
-                alert("You have reached " + checkBudget() + "% of your budget.")
-            }
 
-            /////
-            // NEW EXPENSE FUNCTION START ZZ //
-            /////
+        /////
+        // NEW EXPENSE FUNCTION START ZZ //
+        /////
 
-            expenseOutput.style.visibility = "visible"
-            const newExpense = document.createElement("div")
-            const newExpenseName = document.createElement("div")
-            const newClassName = expenseName.value.trim().replace(/ /g, "")
-            const newTagArray = expenseTag.value.split(", ")
-            // This shows the expenseOutput element and then creates a variable to append the rest of the variables to,
-            // one to append the name of the expense to, one to create a classname that matches the expense name,
-            // and one to create a classname that matches all tags applied to the expense. 
+        expenseOutput.style.visibility = "visible"
+        const newExpense = document.createElement("div")
+        const newExpenseName = document.createElement("div")
+        const newClassName = expenseName.value.trim().replace(/ /g, "")
+        const newTagArray = expenseTag.value.split(", ")
+        // This shows the expenseOutput element and then creates a variable to append the rest of the variables to,
+        // one to append the name of the expense to, one to create a classname that matches the expense name,
+        // and one to create a classname that matches all tags applied to the expense. 
 
 
-            if (classArray.indexOf(newClassName) == -1) {
-                classArray.push(newClassName)
-            }
+        if (classArray.indexOf(newClassName) == -1) {
+            classArray.push(newClassName)
+        }
 
-            newExpense.style.order = classArray.length + 1
-            newExpense.classList.add("expense__newExpense", newClassName)
-            // This checks whether or not the class name is unique, (thus a new class entirely), and if so, adds it to the list of classes.
-            // It also adds an order that makes sure nothing is at order = 1, so that when the search function is called, it can pull something up to order = 1.
+        newExpense.style.order = classArray.length + 1
+        newExpense.classList.add("expense__newExpense", newClassName)
+        // This checks whether or not the class name is unique, (thus a new class entirely), and if so, adds it to the list of classes.
+        // It also adds an order that makes sure nothing is at order = 1, so that when the search function is called, it can pull something up to order = 1.
 
-            newExpenseName.classList.add("expense__item")
-            const newExpenseNameText = document.createTextNode(expenseName.value)
-            newExpenseName.appendChild(newExpenseNameText)
-            newExpense.appendChild(newExpenseName)
-            // This creates a div with the text that the person put into the text field and a class of what was put into the text field.
+        newExpenseName.classList.add("expense__item")
+        const newExpenseNameText = document.createTextNode(expenseName.value)
+        newExpenseName.appendChild(newExpenseNameText)
+        newExpense.appendChild(newExpenseName)
+        // This creates a div with the text that the person put into the text field and a class of what was put into the text field.
 
-            const newExpenseAmount = document.createElement("div")
-            newExpenseAmount.classList.add("expense__cost")
-            const newExpenseAmountNumber = document.createTextNode("$" + expenseAmount.value)
-            newExpenseAmount.appendChild(newExpenseAmountNumber)
+        const newExpenseAmount = document.createElement("div")
+        newExpenseAmount.classList.add("expense__cost")
+        const newExpenseAmountNumber = document.createTextNode("$" + expenseAmount.value)
+        newExpenseAmount.appendChild(newExpenseAmountNumber)
 
-            newExpense.appendChild(newExpenseAmount)
-            // This creates a div with the text the person put into the number field.
+        newExpense.appendChild(newExpenseAmount)
+        // This creates a div with the text the person put into the number field.
 
-            let removeExpenseBox = document.createElement("div")
-            let removeExpenseBtn = document.createElement("button")
-            removeExpenseBtn.classList.add("remove__expense")
-            removeExpenseBox.classList.add("remove__box")
-            const removeExpenseTxt = document.createTextNode("Remove")
-            removeExpenseBtn.appendChild(removeExpenseTxt)
-            removeExpenseBox.appendChild(removeExpenseBtn)
-            // This creates a remove button, its div, and their styles.
+        let removeExpenseBox = document.createElement("div")
+        let removeExpenseBtn = document.createElement("button")
+        removeExpenseBtn.classList.add("remove__expense")
+        removeExpenseBox.classList.add("remove__box")
+        const removeExpenseTxt = document.createTextNode("Remove")
+        removeExpenseBtn.appendChild(removeExpenseTxt)
+        removeExpenseBox.appendChild(removeExpenseBtn)
+        // This creates a remove button, its div, and their styles.
 
-            for (i = 0; i < newTagArray.length; i++) {
-                if (newTagArray[i] !== "") {
-                    newTagName = newTagArray[i].trim().replace(/ /g, '_')
-                    let newExpenseTagText = document.createTextNode(newTagName)
-                    let newTag = document.createElement("div")
-                    newTag.appendChild(newExpenseTagText)
-                    newTag.classList.add("expense__tag")
+        for (i = 0; i < newTagArray.length; i++) {
+            if (newTagArray[i] !== "") {
+                console.log(newTagArray)
+                newTagName = newTagArray[i].trim().replace(/ /g, '_')
+                console.log("After replace")
+                console.log(newTagArray)
+                let newExpenseTagText = document.createTextNode(newTagName)
+                let newTag = document.createElement("div")
+                newTag.appendChild(newExpenseTagText)
+                newTag.classList.add("expense__tag")
 
-                    if (classArray.indexOf(newTagName) == -1) {
-                        classArray.push(newTagName)
-                        newExpense.classList.add(newTagName)
+                if (classArray.indexOf(newTagName) == -1) {
+                    classArray.push(newTagName)
+                    newExpense.classList.add(newTagName)
+                }
+
+                newTag.addEventListener("click", function removeTag() {
+                    if (confirm("Are you sure you want to remove this tag?")) {
+                        classArray.splice(classArray.indexOf(this))
+                        this.parentElement.parentElement.classList.remove(this.innerHTML)
+                        this.parentElement.removeChild(this)
                     }
 
-                    newTag.addEventListener("click", function removeTag() {
-                        if (confirm("Are you sure you want to remove this tag?")) {
-                            classArray.splice(classArray.indexOf(this))
-                            this.parentElement.parentElement.classList.remove(this.innerHTML)
-                            this.parentElement.removeChild(this)
-                        }
+                })
 
-                    })
-
-                    removeExpenseBox.appendChild(newTag)
+                removeExpenseBox.appendChild(newTag)
 
 
+            }
+        }
+        // This appends all new tags to the removeExpenseBox.
+
+        newExpense.appendChild(removeExpenseBox)
+
+        expenseOutput.appendChild(newExpense)
+        // This appends the expenseName, the expenseAmount, and the removeExpenseBtn to expenseOutput.
+        // In other words, this makes them visible.
+
+        removeExpenseBtn.addEventListener("click", function remove() {
+            if (confirm("Are you sure you want to remove this expense?")) {
+                this.parentElement.parentElement.remove()
+            }
+        })
+
+        // This creates a function that allows each remove button to remove its parent expense.
+        function checkLocalBudget() {
+            console.log("Function Run!")
+            for (i = 0; i < budgetArray.length; i++) {
+                var categoryExpenseTotal = 0
+                let localBudgetCategory = document.getElementsByClassName(budgetArray[i])
+                console.log(localBudgetCategory)
+                for (j = 0; j < localBudgetCategory.length; j++) {
+                    let currentCategoryExpense = localBudgetCategory[j].childNodes[1].innerHTML.replace("$", "")
+                    categoryExpenseTotal += parseFloat(currentCategoryExpense)
+                    console.log(categoryExpenseTotal)
+                    newTagArray
                 }
             }
-            // This appends all new tags to the removeExpenseBox.
-
-            newExpense.appendChild(removeExpenseBox)
-
-            expenseOutput.appendChild(newExpense)
-            // This appends the expenseName, the expenseAmount, and the removeExpenseBtn to expenseOutput.
-            // In other words, this makes them visible.
-
-            removeExpenseBtn.addEventListener("click", function remove() {
-                if (confirm("Are you sure you want to remove this expense?")) {
-                    this.parentElement.parentElement.remove()
-                }
-            })
-
-            // This creates a function that allows each remove button to remove its parent expense.
-
-
-
         }
+        checkLocalBudget()
+
+
     }
+    // }
 })
 
 
