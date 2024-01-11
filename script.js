@@ -108,6 +108,7 @@ expenseBtn.addEventListener("click", function addExpense() {
 
     removeExpenseBtn.addEventListener("click", function removeExpense() {
         if (confirm("Are you sure you want to remove this expense?")) {
+            console.log(budgetMax, expenseTotal)
             let btnGrandParent = this.parentElement.parentElement
             let grandParentHomonymArray = document.getElementsByClassName(btnGrandParent.childNodes[0].innerHTML)
             console.log(grandParentHomonymArray)
@@ -115,6 +116,8 @@ expenseBtn.addEventListener("click", function addExpense() {
                 classArray.splice(btnGrandParent.childNodes[0].innerHTML)
             }
             btnGrandParent.remove()
+            checkBudget()
+            budgetContainer.innerHTML = "Global Budget of $" + budgetMax + ". <br> Budget spent: $" + expenseTotal + " (" + checkBudget().toFixed(2) + "%) "
         }
     })
 
@@ -123,7 +126,7 @@ expenseBtn.addEventListener("click", function addExpense() {
         newExpense.remove()
     }
     else if (checkBudget() > 69) {
-        alert("You have reached " + checkBudget() + "% of your budget.")
+        alert("You have reached " + checkBudget().toFixed(2) + "% of your budget.")
     }
     var categoryExpenseArray = []
     for (let i = 0; i < budgetArray.length; i++) {
@@ -142,7 +145,7 @@ expenseBtn.addEventListener("click", function addExpense() {
         }
     }
     if (checkBudget() !== -1 && checkLocalBudget() !== -1) {
-        budgetContainer.innerHTML = "Global Budget of $" + budgetMax + ". <br> Budget spent: $" + expenseTotal + " (" + checkBudget() + "%) "
+        budgetContainer.innerHTML = "Global Budget of $" + budgetMax + ". <br> Budget spent: $" + expenseTotal + " (" + checkBudget().toFixed(2) + "%) "
         expenseOutput.style.visibility = "visible"
         const newTagArray = expenseTag.value.split(", ")
         for (let i = 0; i < newTagArray.length; i++) {
