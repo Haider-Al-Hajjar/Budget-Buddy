@@ -1,5 +1,28 @@
 // The following lines are about the addExpense function.
 
+document.addEventListener("DOMContentLoaded", function prompter(confirmed) {
+    while (confirmed !== 1) {
+        const user = prompt("You have returned to the fold, little lamb. Tell us your name, and we may proceed.", "Mary.")
+        if (user.toLowerCase() === "mary") {
+            let codeWord = prompt("Welcome, Mother Mary! It is a joy to see your return. Please, give us your code word and you will be granted access!", "Shepherdess.")
+            if (codeWord.toLowerCase() === "shepherdess") {
+                alert("Let the turnip run red with blood and the savings turn green!.")
+                confirmed = 1
+            }
+        }
+        else {
+            codeWord = prompt(user + ", eh? You must be new. Please, enter the code word and we will begin your initiatioon.", "Turnip.")
+            if (codeWord.toLowerCase() === "turnip") {
+                alert("Access granted. May the turnip run red with blood.")
+                confirmed = 1
+            }
+            else {
+                alert("That is not our code word. We do not welcome outsiders.");
+            }
+        }
+    }
+})
+
 let expenseName = document.getElementById("expense__name")
 let expenseAmount = document.getElementById("expense__amount")
 let expenseTag = document.getElementById("expense__tag")
